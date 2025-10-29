@@ -107,7 +107,7 @@ const ContactPage: React.FC = () => {
   };
 
   const commonLabelClasses = "absolute text-sm duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 left-1 peer-focus:px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4";
-  const commonInputClasses = "block w-full px-3 py-2.5 text-gray-800 bg-transparent border rounded-md appearance-none focus:outline-none focus:ring-0 peer transition-colors duration-300";
+  const commonInputClasses = "block w-full px-3 py-2.5 text-gray-800 bg-transparent border rounded-md appearance-none focus:outline-none peer transform transition-all duration-300 ease-in-out";
 
   return (
     <div className="bg-white">
@@ -128,7 +128,7 @@ const ContactPage: React.FC = () => {
                         Thank you for your message! We'll get back to you shortly.
                     </div>
                 )}
-                <div className="space-y-8">
+                <div className="space-y-6">
                   <div>
                     <div className="relative">
                       <input 
@@ -139,11 +139,13 @@ const ContactPage: React.FC = () => {
                         onChange={handleChange}
                         onBlur={handleBlur}
                         placeholder=" "
-                        className={`${commonInputClasses} ${errors.name ? 'border-red-500 focus:border-red-600' : 'border-gray-300 focus:border-blue-600'}`}
+                        className={`${commonInputClasses} ${errors.name ? 'border-red-500 focus:border-red-600 focus:ring-2 focus:ring-red-200' : 'border-gray-300 focus:border-blue-600 focus:ring-2 focus:ring-blue-200'} focus:scale-[1.01]`}
                       />
                       <label htmlFor="name" className={`${commonLabelClasses} ${errors.name ? 'text-red-600' : 'text-gray-500 peer-focus:text-blue-600'}`}>Name</label>
                     </div>
-                    {errors.name && <p className="text-red-600 text-xs mt-1">{errors.name}</p>}
+                    <div className={`transition-all duration-300 ease-in-out overflow-hidden ${errors.name ? 'max-h-6 opacity-100' : 'max-h-0 opacity-0'}`}>
+                      <p className="text-red-600 text-xs pt-1">{errors.name}</p>
+                    </div>
                   </div>
                   <div>
                     <div className="relative">
@@ -155,11 +157,13 @@ const ContactPage: React.FC = () => {
                         onChange={handleChange}
                         onBlur={handleBlur}
                         placeholder=" "
-                        className={`${commonInputClasses} ${errors.email ? 'border-red-500 focus:border-red-600' : 'border-gray-300 focus:border-blue-600'}`}
+                        className={`${commonInputClasses} ${errors.email ? 'border-red-500 focus:border-red-600 focus:ring-2 focus:ring-red-200' : 'border-gray-300 focus:border-blue-600 focus:ring-2 focus:ring-blue-200'} focus:scale-[1.01]`}
                       />
                       <label htmlFor="email" className={`${commonLabelClasses} ${errors.email ? 'text-red-600' : 'text-gray-500 peer-focus:text-blue-600'}`}>Email</label>
                     </div>
-                    {errors.email && <p className="text-red-600 text-xs mt-1">{errors.email}</p>}
+                    <div className={`transition-all duration-300 ease-in-out overflow-hidden ${errors.email ? 'max-h-6 opacity-100' : 'max-h-0 opacity-0'}`}>
+                      <p className="text-red-600 text-xs pt-1">{errors.email}</p>
+                    </div>
                   </div>
                   <div>
                     <div className="relative">
@@ -170,7 +174,7 @@ const ContactPage: React.FC = () => {
                         value={formData.phone}
                         onChange={handleChange}
                         placeholder=" "
-                        className={`${commonInputClasses} border-gray-300 focus:border-blue-600`}
+                        className={`${commonInputClasses} border-gray-300 focus:border-blue-600 focus:ring-2 focus:ring-blue-200 focus:scale-[1.01]`}
                       />
                       <label htmlFor="phone" className={`${commonLabelClasses} text-gray-500 peer-focus:text-blue-600`}>Phone Number (Optional)</label>
                     </div>
@@ -185,16 +189,18 @@ const ContactPage: React.FC = () => {
                         onChange={handleChange}
                         onBlur={handleBlur}
                         placeholder=" "
-                        className={`${commonInputClasses} ${errors.message ? 'border-red-500 focus:border-red-600' : 'border-gray-300 focus:border-blue-600'}`}
+                        className={`${commonInputClasses} ${errors.message ? 'border-red-500 focus:border-red-600 focus:ring-2 focus:ring-red-200' : 'border-gray-300 focus:border-blue-600 focus:ring-2 focus:ring-blue-200'} focus:scale-[1.01]`}
                       ></textarea>
                       <label htmlFor="message" className={`${commonLabelClasses} ${errors.message ? 'text-red-600' : 'text-gray-500 peer-focus:text-blue-600'}`}>Message</label>
                     </div>
-                    {errors.message && <p className="text-red-600 text-xs mt-1">{errors.message}</p>}
+                    <div className={`transition-all duration-300 ease-in-out overflow-hidden ${errors.message ? 'max-h-6 opacity-100' : 'max-h-0 opacity-0'}`}>
+                      <p className="text-red-600 text-xs pt-1">{errors.message}</p>
+                    </div>
                   </div>
                 </div>
                 <button 
                   type="submit" 
-                  className="mt-8 bg-blue-600 text-white font-bold py-3 px-6 rounded-md transition-all duration-300 ease-in-out w-full disabled:bg-gray-400 disabled:cursor-not-allowed hover:bg-blue-700 hover:shadow-lg transform hover:-translate-y-1"
+                  className="mt-8 bg-blue-600 text-white font-bold py-3 px-6 rounded-md transition-all duration-300 ease-in-out w-full disabled:bg-gray-400 disabled:cursor-not-allowed hover:bg-blue-700 hover:shadow-lg transform hover:-translate-y-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500"
                   disabled={!isFormValid}
                 >
                   Send Message
