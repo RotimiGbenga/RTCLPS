@@ -5,7 +5,7 @@ const TaxPage: React.FC = () => {
     <div className="bg-white">
       <section className="bg-gray-50 py-16">
         <div className="container mx-auto px-6">
-          <h1 className="text-4xl font-bold text-orange-600 mb-2">Tax Advisory Services</h1>
+          <h1 className="text-4xl font-bold text-blue-600 mb-2">Tax Advisory Services</h1>
           <p className="text-lg text-gray-600">Expert Guidance for Compliance and Efficiency</p>
         </div>
       </section>
@@ -14,7 +14,7 @@ const TaxPage: React.FC = () => {
         <div className="container mx-auto px-6">
           <div className="max-w-4xl mx-auto">
             <div className="mb-12">
-              <h2 className="text-3xl font-bold text-orange-600 mb-4">Navigating the Complexities of Tax</h2>
+              <h2 className="text-3xl font-bold text-blue-600 mb-4">Navigating the Complexities of Tax</h2>
               <p className="text-gray-700 leading-relaxed mb-4">
                 The tax landscape is constantly evolving, presenting both challenges and opportunities for businesses and individuals. Staying compliant while optimizing your tax position requires deep expertise and proactive planning.
               </p>
@@ -24,7 +24,7 @@ const TaxPage: React.FC = () => {
             </div>
 
             <div className="mb-12">
-              <h2 className="text-3xl font-bold text-orange-600 mb-4">Our Tax Services</h2>
+              <h2 className="text-3xl font-bold text-blue-600 mb-4">Our Tax Services</h2>
               <div className="space-y-6">
                 <div>
                   <h3 className="text-xl font-semibold text-gray-800">Business Tax Planning & Compliance</h3>

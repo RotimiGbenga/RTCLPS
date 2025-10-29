@@ -6,42 +6,70 @@ import { XMarkIcon } from './icons/XMarkIcon';
 interface Message {
   text: string;
   sender: 'user' | 'agent';
+  timestamp: string;
 }
+
+const formatTime = () => new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 
 const LiveChatWidget: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isTyping, setIsTyping] = useState({ user: false, agent: false });
   const [messages, setMessages] = useState<Message[]>([
-    { text: "Hello! How can we help you today?", sender: 'agent' }
+    { text: "Hello! How can we help you today?", sender: 'agent', timestamp: formatTime() }
   ]);
   const [inputValue, setInputValue] = useState('');
   const chatEndRef = useRef<HTMLDivElement>(null);
+  const typingTimeoutRef = useRef<number | null>(null);
 
   const scrollToBottom = () => {
     chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
 
-  useEffect(scrollToBottom, [messages]);
+  useEffect(scrollToBottom, [messages, isTyping]);
 
   const handleSendMessage = (e: React.FormEvent) => {
     e.preventDefault();
     if (inputValue.trim() === '') return;
 
-    const userMessage: Message = { text: inputValue, sender: 'user' };
+    if (typingTimeoutRef.current) clearTimeout(typingTimeoutRef.current);
+    setIsTyping({ user: false, agent: true });
+
+    const userMessage: Message = { text: inputValue, sender: 'user', timestamp: formatTime() };
     setMessages(prev => [...prev, userMessage]);
     setInputValue('');
 
     setTimeout(() => {
-      const agentResponse: Message = { text: "Thanks for your message! An agent will be with you shortly.", sender: 'agent' };
+      const agentResponse: Message = { text: "Thanks for your message! An agent will be with you shortly.", sender: 'agent', timestamp: formatTime() };
       setMessages(prev => [...prev, agentResponse]);
+      setIsTyping(prev => ({...prev, agent: false}));
     }, 1500);
   };
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setInputValue(value);
+
+    if (typingTimeoutRef.current) {
+        clearTimeout(typingTimeoutRef.current);
+    }
+
+    if (value.trim() !== '' && !isTyping.agent) {
+        setIsTyping(prev => ({ ...prev, user: true }));
+        typingTimeoutRef.current = window.setTimeout(() => {
+            setIsTyping(prev => ({ ...prev, user: false }));
+        }, 1200);
+    } else {
+        setIsTyping(prev => ({ ...prev, user: false }));
+    }
+  };
+
 
   return (
     <>
       <div className={`fixed bottom-5 right-5 z-50 transition-all duration-300 ${isOpen ? 'opacity-0 scale-90' : 'opacity-100 scale-100'}`}>
         <button
           onClick={() => setIsOpen(true)}
-          className="bg-orange-600 text-white rounded-full p-4 shadow-lg hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500"
+          className="bg-blue-600 text-white rounded-full p-4 shadow-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
           aria-label="Open chat"
           style={{ pointerEvents: isOpen ? 'none' : 'auto' }}
         >
@@ -58,9 +86,9 @@ const LiveChatWidget: React.FC = () => {
         aria-hidden={!isOpen}
       >
         {/* Header */}
-        <header className="bg-orange-600 text-white p-4 flex justify-between items-center rounded-t-lg">
+        <header className="bg-blue-600 text-white p-4 flex justify-between items-center rounded-t-lg">
           <h3 className="font-bold text-lg">Chat with us</h3>
-          <button onClick={() => setIsOpen(false)} aria-label="Close chat" className="hover:bg-orange-700 p-1 rounded-full">
+          <button onClick={() => setIsOpen(false)} aria-label="Close chat" className="hover:bg-blue-700 p-1 rounded-full">
             <XMarkIcon className="h-6 w-6" />
           </button>
         </header>
@@ -69,7 +97,7 @@ const LiveChatWidget: React.FC = () => {
         <div className="flex-grow p-4 overflow-y-auto bg-gray-50">
           <div className="space-y-4">
             {messages.map((msg, index) => (
-              <div key={index} className={`flex ${msg.sender === 'user' ? 'justify-end' : 'justify-start'}`}>
+              <div key={index} className={`flex flex-col ${msg.sender === 'user' ? 'items-end' : 'items-start'}`}>
                 <div
                   className={`max-w-xs lg:max-w-md px-4 py-2 rounded-xl ${
                     msg.sender === 'user' ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-800'
@@ -77,8 +105,23 @@ const LiveChatWidget: React.FC = () => {
                 >
                   <p className="text-sm">{msg.text}</p>
                 </div>
+                 <span className="text-xs text-gray-400 mt-1 px-1">
+                  {msg.sender === 'user' ? 'Sent' : 'Delivered'} at {msg.timestamp}
+                </span>
               </div>
             ))}
+            {isTyping.agent && (
+              <div className="flex items-center space-x-1.5 p-2">
+                <div className="w-2 h-2 bg-gray-400 rounded-full animate-pulse"></div>
+                <div className="w-2 h-2 bg-gray-400 rounded-full animate-pulse [animation-delay:0.2s]"></div>
+                <div className="w-2 h-2 bg-gray-400 rounded-full animate-pulse [animation-delay:0.4s]"></div>
+              </div>
+            )}
+             {isTyping.user && (
+              <div className="flex items-center justify-end">
+                  <p className="text-xs text-gray-500 italic">typing...</p>
+              </div>
+            )}
              <div ref={chatEndRef} />
           </div>
         </div>
@@ -89,14 +132,14 @@ const LiveChatWidget: React.FC = () => {
             <input
               type="text"
               value={inputValue}
-              onChange={(e) => setInputValue(e.target.value)}
+              onChange={handleInputChange}
               placeholder="Type your message..."
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500"
+              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               aria-label="Chat message input"
             />
             <button
               type="submit"
-              className="bg-orange-600 text-white p-2 rounded-full hover:bg-orange-700 disabled:bg-gray-400"
+              className="bg-blue-600 text-white p-2 rounded-full hover:bg-blue-700 disabled:bg-gray-400"
               disabled={!inputValue.trim()}
               aria-label="Send message"
             >

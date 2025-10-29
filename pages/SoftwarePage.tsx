@@ -5,7 +5,7 @@ const SoftwarePage: React.FC = () => {
     <div className="bg-white">
       <section className="bg-gray-50 py-16">
         <div className="container mx-auto px-6">
-          <h1 className="text-4xl font-bold text-orange-600 mb-2">Business Software Implementation & Support</h1>
+          <h1 className="text-4xl font-bold text-blue-600 mb-2">Business Software Implementation & Support</h1>
           <p className="text-lg text-gray-600">Integrating Technology for Peak Performance</p>
         </div>
       </section>
@@ -14,7 +14,7 @@ const SoftwarePage: React.FC = () => {
         <div className="container mx-auto px-6">
           <div className="max-w-4xl mx-auto">
             <div className="mb-12">
-              <h2 className="text-3xl font-bold text-orange-600 mb-4">Our Software Expertise</h2>
+              <h2 className="text-3xl font-bold text-blue-600 mb-4">Our Software Expertise</h2>
               <p className="text-gray-700 leading-relaxed mb-4">
                 The right software can revolutionize your business, but implementation can be complex. We bridge the gap between technology and business needs. Our team has deep expertise in a range of powerful financial and business management software, ensuring a smooth transition and optimal performance.
               </p>
@@ -27,7 +27,7 @@ const SoftwarePage: React.FC = () => {
             </div>
 
             <div className="mb-12">
-              <h2 className="text-3xl font-bold text-orange-600 mb-4">Our Services</h2>
+              <h2 className="text-3xl font-bold text-blue-600 mb-4">Our Services</h2>
               <p className="text-gray-700 leading-relaxed mb-4">
                 We provide end-to-end support for your business software journey:
               </p>
@@ -40,7 +40,7 @@ const SoftwarePage: React.FC = () => {
             </div>
 
             <div>
-              <h2 className="text-3xl font-bold text-orange-600 mb-4">Key Benefits</h2>
+              <h2 className="text-3xl font-bold text-blue-600 mb-4">Key Benefits</h2>
               <ul className="space-y-4">
                 <li>
                   <h3 className="text-xl font-semibold text-gray-800">Improved Efficiency</h3>

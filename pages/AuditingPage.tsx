@@ -5,7 +5,7 @@ const AuditingPage: React.FC = () => {
     <div className="bg-white">
       <section className="bg-gray-50 py-16">
         <div className="container mx-auto px-6">
-          <h1 className="text-4xl font-bold text-orange-600 mb-2">Business Assurance</h1>
+          <h1 className="text-4xl font-bold text-blue-600 mb-2">Business Assurance</h1>
           <p className="text-lg text-gray-600">Building Confidence and Ensuring Integrity</p>
         </div>
       </section>
@@ -14,7 +14,7 @@ const AuditingPage: React.FC = () => {
         <div className="container mx-auto px-6">
           <div className="max-w-4xl mx-auto">
             <div className="mb-12">
-              <h2 className="text-3xl font-bold text-orange-600 mb-4">The Value of Business Assurance</h2>
+              <h2 className="text-3xl font-bold text-blue-600 mb-4">The Value of Business Assurance</h2>
               <p className="text-gray-700 leading-relaxed mb-4">
                 In today's complex business environment, assurance is more than a compliance requirement—it's a vital tool for building trust and confidence. Professional assurance provides stakeholders, from investors and lenders to management, with a clear and credible view of a company's financial health. It identifies risks, highlights opportunities for improvement in internal controls, and ensures that your financial reporting is accurate and transparent.
               </p>
@@ -24,7 +24,7 @@ const AuditingPage: React.FC = () => {
             </div>
 
             <div className="mb-12">
-              <h2 className="text-3xl font-bold text-orange-600 mb-4">Our Assurance Process</h2>
+              <h2 className="text-3xl font-bold text-blue-600 mb-4">Our Assurance Process</h2>
               <p className="text-gray-700 leading-relaxed mb-4">
                 Our assurance process is collaborative, systematic, and tailored to your organization. We work closely with your team to ensure minimal disruption while maintaining the highest standards of independence and objectivity.
               </p>
@@ -37,7 +37,7 @@ const AuditingPage: React.FC = () => {
             </div>
 
             <div>
-              <h2 className="text-3xl font-bold text-orange-600 mb-4">Types of Assurance We Provide</h2>
+              <h2 className="text-3xl font-bold text-blue-600 mb-4">Types of Assurance We Provide</h2>
               <ul className="space-y-4">
                 <li>
                   <h3 className="text-xl font-semibold text-gray-800">Statutory Audits</h3>

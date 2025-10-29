@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Logo from './Logo';
 
 const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -27,15 +28,13 @@ const Header: React.FC = () => {
     if (activeRoute === href) {
       return `${baseClasses} font-semibold border-white`;
     }
-    return `${baseClasses} border-transparent hover:border-orange-200`;
+    return `${baseClasses} border-transparent hover:border-blue-200`;
   };
 
   return (
-    <header className="bg-orange-600 text-white sticky top-0 z-50 shadow-md">
+    <header className="bg-blue-600 text-white sticky top-0 z-50 shadow-md">
       <div className="container mx-auto px-6 py-4 flex justify-between items-center">
-        <a href="#/home" className="text-2xl font-bold">
-          TCL Professional Services
-        </a>
+        <Logo className="text-white" />
         <nav className="hidden md:flex items-center space-x-6">
           {navLinks.map((link) => (
             <a key={link.href} href={link.href} className={getLinkClass(link.href)}>
@@ -44,7 +43,7 @@ const Header: React.FC = () => {
           ))}
           <a
             href="#/contact"
-            className="bg-white text-orange-600 font-semibold px-4 py-2 rounded-md hover:bg-gray-200 transition-colors duration-300"
+            className="bg-white text-blue-600 font-semibold px-4 py-2 rounded-md hover:bg-gray-200 transition-colors duration-300"
           >
             Request a Consultation
           </a>
@@ -58,7 +57,7 @@ const Header: React.FC = () => {
         </div>
       </div>
       {isMenuOpen && (
-        <div className="md:hidden bg-orange-700">
+        <div className="md:hidden bg-blue-700">
           <nav className="flex flex-col items-center space-y-4 py-4">
             {navLinks.map((link) => (
               <a key={link.href} href={link.href} onClick={() => setIsMenuOpen(false)} className={getLinkClass(link.href)}>
@@ -68,7 +67,7 @@ const Header: React.FC = () => {
             <a
               href="#/contact"
               onClick={() => setIsMenuOpen(false)}
-              className="bg-white text-orange-600 font-semibold px-4 py-2 rounded-md hover:bg-gray-200 transition-colors duration-300 w-11/12 text-center"
+              className="bg-white text-blue-600 font-semibold px-4 py-2 rounded-md hover:bg-gray-200 transition-colors duration-300 w-11/12 text-center"
             >
               Request a Consultation
             </a>

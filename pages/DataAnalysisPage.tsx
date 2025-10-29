@@ -5,7 +5,7 @@ const DataAnalysisPage: React.FC = () => {
     <div className="bg-white">
       <section className="bg-gray-50 py-16">
         <div className="container mx-auto px-6">
-          <h1 className="text-4xl font-bold text-orange-600 mb-2">Data Analysis & Business Intelligence</h1>
+          <h1 className="text-4xl font-bold text-blue-600 mb-2">Data Analysis & Business Intelligence</h1>
           <p className="text-lg text-gray-600">Unlocking the Power of Your Data</p>
         </div>
       </section>
@@ -14,7 +14,7 @@ const DataAnalysisPage: React.FC = () => {
         <div className="container mx-auto px-6">
           <div className="max-w-4xl mx-auto">
             <div className="mb-12">
-              <h2 className="text-3xl font-bold text-orange-600 mb-4">From Data to Decisions</h2>
+              <h2 className="text-3xl font-bold text-blue-600 mb-4">From Data to Decisions</h2>
               <p className="text-gray-700 leading-relaxed mb-4">
                 In today's competitive landscape, data is one of your most valuable assets. However, raw data alone is not enough. The key to unlocking its potential lies in effective analysis and business intelligence (BI). By transforming complex data into clear, actionable insights, you can make smarter decisions, optimize operations, and identify new opportunities for growth.
               </p>
@@ -24,7 +24,7 @@ const DataAnalysisPage: React.FC = () => {
             </div>
 
             <div className="mb-12">
-              <h2 className="text-3xl font-bold text-orange-600 mb-4">Our Data & BI Services</h2>
+              <h2 className="text-3xl font-bold text-blue-600 mb-4">Our Data & BI Services</h2>
               <p className="text-gray-700 leading-relaxed mb-4">
                 We offer a comprehensive suite of services to meet your data analysis needs:
               </p>
@@ -37,7 +37,7 @@ const DataAnalysisPage: React.FC = () => {
             </div>
 
             <div>
-              <h2 className="text-3xl font-bold text-orange-600 mb-4">Key Benefits</h2>
+              <h2 className="text-3xl font-bold text-blue-600 mb-4">Key Benefits</h2>
               <ul className="space-y-4">
                 <li>
                   <h3 className="text-xl font-semibold text-gray-800">Data-Driven Strategy</h3>

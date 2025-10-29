@@ -1,4 +1,24 @@
 import React, { useState, useEffect } from 'react';
+import { ChevronDownIcon } from '../components/icons/ChevronDownIcon';
+
+const faqData = [
+  {
+    question: "What services do you specialize in?",
+    answer: "We specialize in a range of services including Business Assurance (auditing), Book-Keeping, Business Software Implementation (Infor Sunsystems, Sage, Zoho), Professional Training, Tax Advisory, and Data Analysis."
+  },
+  {
+    question: "How do you handle software implementation and support?",
+    answer: "Our process includes software selection, full implementation and configuration, secure data migration, and reliable ongoing technical support to ensure your team can leverage the software to its full potential."
+  },
+  {
+    question: "What is your approach to client communication?",
+    answer: "We believe in building long-term partnerships. We act as an extension of your team, providing clear, consistent communication and ongoing guidance to help you navigate challenges and seize opportunities."
+  },
+  {
+    question: "Do you offer services for startups and small businesses?",
+    answer: "Absolutely. Our services are tailored to meet the unique needs and budgets of businesses of all sizes, from startups to established enterprises. We offer flexible book-keeping schedules (daily, weekly, monthly) to fit your requirements."
+  }
+];
 
 const ContactPage: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -16,6 +36,11 @@ const ContactPage: React.FC = () => {
 
   const [isFormValid, setIsFormValid] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(null);
+
+  const handleFaqToggle = (index: number) => {
+    setOpenFaqIndex(openFaqIndex === index ? null : index);
+  };
 
   const validateField = (name: string, value: string): string => {
     switch (name) {
@@ -43,7 +68,6 @@ const ContactPage: React.FC = () => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
     
-    // Clear error on change after initial blur
     if (errors[name as keyof typeof errors]) {
       const error = validateField(name, value);
       setErrors(prev => ({ ...prev, [name]: error }));
@@ -72,7 +96,6 @@ const ContactPage: React.FC = () => {
       return;
     }
 
-    // Simulate form submission
     console.log('Form submitted:', formData);
     setIsSubmitted(true);
     setFormData({ name: '', email: '', phone: '', message: '' });
@@ -83,11 +106,14 @@ const ContactPage: React.FC = () => {
     }, 5000);
   };
 
+  const commonLabelClasses = "absolute text-sm duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 left-1 peer-focus:px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4";
+  const commonInputClasses = "block w-full px-3 py-2.5 text-gray-800 bg-transparent border rounded-md appearance-none focus:outline-none focus:ring-0 peer transition-colors duration-300";
+
   return (
     <div className="bg-white">
       <section className="bg-gray-50 py-16">
         <div className="container mx-auto px-6 text-center">
-          <h1 className="text-4xl md:text-5xl font-bold text-orange-600">Get in Touch With Our Experts</h1>
+          <h1 className="text-4xl md:text-5xl font-bold text-blue-600">Get in Touch With Our Experts</h1>
           <p className="mt-4 text-lg text-gray-600">We're here to help. Reach out to us with any questions or to schedule a consultation.</p>
         </div>
       </section>
@@ -95,67 +121,80 @@ const ContactPage: React.FC = () => {
       <section className="py-20">
         <div className="container mx-auto px-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-            {/* Contact Form */}
             <div>
-              <form onSubmit={handleSubmit} className="bg-white p-8 rounded-lg shadow-lg" noValidate>
+              <form onSubmit={handleSubmit} className="bg-white p-8 rounded-lg shadow-xl" noValidate>
                 {isSubmitted && (
-                    <div className="mb-4 p-4 bg-green-100 text-green-800 rounded-md text-center">
+                    <div className="mb-6 p-4 bg-green-100 text-green-800 rounded-md text-center">
                         Thank you for your message! We'll get back to you shortly.
                     </div>
                 )}
-                <div className="mb-4">
-                  <label htmlFor="name" className="block text-gray-700 font-semibold mb-2">Name</label>
-                  <input 
-                    type="text" 
-                    id="name" 
-                    name="name" 
-                    value={formData.name}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 ${errors.name ? 'border-red-500 focus:ring-red-500' : 'border-gray-300 focus:ring-orange-500'}`}
-                  />
-                  {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name}</p>}
-                </div>
-                <div className="mb-4">
-                  <label htmlFor="email" className="block text-gray-700 font-semibold mb-2">Email</label>
-                  <input 
-                    type="email" 
-                    id="email" 
-                    name="email" 
-                    value={formData.email}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 ${errors.email ? 'border-red-500 focus:ring-red-500' : 'border-gray-300 focus:ring-orange-500'}`}
-                  />
-                  {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
-                </div>
-                <div className="mb-4">
-                  <label htmlFor="phone" className="block text-gray-700 font-semibold mb-2">Phone Number (Optional)</label>
-                  <input 
-                    type="tel" 
-                    id="phone" 
-                    name="phone" 
-                    value={formData.phone}
-                    onChange={handleChange}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500" 
-                  />
-                </div>
-                <div className="mb-6">
-                  <label htmlFor="message" className="block text-gray-700 font-semibold mb-2">Message</label>
-                  <textarea 
-                    id="message" 
-                    name="message" 
-                    rows={5}
-                    value={formData.message}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 ${errors.message ? 'border-red-500 focus:ring-red-500' : 'border-gray-300 focus:ring-orange-500'}`}
-                  ></textarea>
-                  {errors.message && <p className="text-red-500 text-sm mt-1">{errors.message}</p>}
+                <div className="space-y-8">
+                  <div>
+                    <div className="relative">
+                      <input 
+                        type="text" 
+                        id="name" 
+                        name="name" 
+                        value={formData.name}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        placeholder=" "
+                        className={`${commonInputClasses} ${errors.name ? 'border-red-500 focus:border-red-600' : 'border-gray-300 focus:border-blue-600'}`}
+                      />
+                      <label htmlFor="name" className={`${commonLabelClasses} ${errors.name ? 'text-red-600' : 'text-gray-500 peer-focus:text-blue-600'}`}>Name</label>
+                    </div>
+                    {errors.name && <p className="text-red-600 text-xs mt-1">{errors.name}</p>}
+                  </div>
+                  <div>
+                    <div className="relative">
+                      <input 
+                        type="email" 
+                        id="email" 
+                        name="email" 
+                        value={formData.email}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        placeholder=" "
+                        className={`${commonInputClasses} ${errors.email ? 'border-red-500 focus:border-red-600' : 'border-gray-300 focus:border-blue-600'}`}
+                      />
+                      <label htmlFor="email" className={`${commonLabelClasses} ${errors.email ? 'text-red-600' : 'text-gray-500 peer-focus:text-blue-600'}`}>Email</label>
+                    </div>
+                    {errors.email && <p className="text-red-600 text-xs mt-1">{errors.email}</p>}
+                  </div>
+                  <div>
+                    <div className="relative">
+                      <input 
+                        type="tel" 
+                        id="phone" 
+                        name="phone" 
+                        value={formData.phone}
+                        onChange={handleChange}
+                        placeholder=" "
+                        className={`${commonInputClasses} border-gray-300 focus:border-blue-600`}
+                      />
+                      <label htmlFor="phone" className={`${commonLabelClasses} text-gray-500 peer-focus:text-blue-600`}>Phone Number (Optional)</label>
+                    </div>
+                  </div>
+                  <div>
+                     <div className="relative">
+                       <textarea 
+                        id="message" 
+                        name="message" 
+                        rows={5}
+                        value={formData.message}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        placeholder=" "
+                        className={`${commonInputClasses} ${errors.message ? 'border-red-500 focus:border-red-600' : 'border-gray-300 focus:border-blue-600'}`}
+                      ></textarea>
+                      <label htmlFor="message" className={`${commonLabelClasses} ${errors.message ? 'text-red-600' : 'text-gray-500 peer-focus:text-blue-600'}`}>Message</label>
+                    </div>
+                    {errors.message && <p className="text-red-600 text-xs mt-1">{errors.message}</p>}
+                  </div>
                 </div>
                 <button 
                   type="submit" 
-                  className="bg-orange-600 text-white font-bold py-3 px-6 rounded-md hover:bg-orange-700 transition-colors w-full disabled:bg-gray-400 disabled:cursor-not-allowed"
+                  className="mt-8 bg-blue-600 text-white font-bold py-3 px-6 rounded-md transition-all duration-300 ease-in-out w-full disabled:bg-gray-400 disabled:cursor-not-allowed hover:bg-blue-700 hover:shadow-lg transform hover:-translate-y-1"
                   disabled={!isFormValid}
                 >
                   Send Message
@@ -166,7 +205,7 @@ const ContactPage: React.FC = () => {
             {/* Contact Info and Map */}
             <div>
               <div className="bg-blue-50 p-8 rounded-lg h-full">
-                <h2 className="text-2xl font-bold text-orange-600 mb-4">Contact Information</h2>
+                <h2 className="text-2xl font-bold text-blue-600 mb-4">Contact Information</h2>
                 <div className="space-y-3 text-gray-700">
                   <div>
                     <h3 className="font-semibold">Address:</h3>
@@ -212,6 +251,42 @@ const ContactPage: React.FC = () => {
                 </div>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ Section */}
+      <section className="py-20 bg-gray-50">
+        <div className="container mx-auto px-6">
+          <h2 className="text-3xl font-bold text-center text-blue-600 mb-8">
+            Frequently Asked Questions
+          </h2>
+          <div className="max-w-3xl mx-auto">
+            {faqData.map((item, index) => (
+              <div key={index} className="border-b">
+                <button
+                  onClick={() => handleFaqToggle(index)}
+                  className="w-full flex justify-between items-center text-left py-5 px-2 focus:outline-none"
+                  aria-expanded={openFaqIndex === index}
+                  aria-controls={`faq-answer-${index}`}
+                >
+                  <span className="text-lg font-semibold text-gray-800">{item.question}</span>
+                  <ChevronDownIcon
+                    className={`w-6 h-6 text-blue-600 transition-transform duration-300 ${
+                      openFaqIndex === index ? 'transform rotate-180' : ''
+                    }`}
+                  />
+                </button>
+                <div
+                  id={`faq-answer-${index}`}
+                  className={`overflow-hidden transition-all duration-500 ease-in-out ${
+                    openFaqIndex === index ? 'max-h-96' : 'max-h-0'
+                  }`}
+                >
+                  <p className="px-2 pb-5 text-gray-600 leading-relaxed">{item.answer}</p>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
